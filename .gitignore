@@ -1,0 +1,5 @@
+build
+!.vscode/*
+rp2040/notes/
+build/
+.vscode
