@@ -39,10 +39,6 @@ int main()
             pico_set_led(false);
             sleep_ms(100);
         }
-        
-        
-
-
     }
 }
 
