@@ -6,6 +6,7 @@
 #define BUTTON_GPIO 15
 #define LED_GPIO 25
 
+
 int pico_led_init(void)
 {
     gpio_init(LED_GPIO);
@@ -22,17 +23,19 @@ int main()
 {
     gpio_init(BUTTON_GPIO);
     gpio_set_dir(BUTTON_GPIO, false);  //false -> input
-    gpio_pull_up(BUTTON_GPIO);
+    gpio_pull_up(BUTTON_GPIO);         //gently pulls pin to 3.3v (1)
 
-    int dc = pico_led_init();
-    hard_assert(dc == 0);
+    int dc = pico_led_init();    //initialize led
+    hard_assert(dc == 0);       //crashes program if error
     while(true)
     {
         //when button is pressed
-        if (!gpio_get(BUTTON_GPIO))    //!GPIO_GET inverts it
+        if (!gpio_get(BUTTON_GPIO))    //!GPIO_GET inverts it;   gpio_get -> current button state
+       
         {
             pico_set_led(true);
             sleep_ms(100);
+            
         }
         else
         {
@@ -40,11 +43,6 @@ int main()
             sleep_ms(100);
         }
         
-        
-
 
     }
 }
-
-
-

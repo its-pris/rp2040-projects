@@ -55,3 +55,19 @@ target_include_directories(button PRIVATE
 
 pico_add_extra_outputs(button)
 
+add_executable(button_toggle button_toggle.c)
+
+pico_set_program_name(button_toggle "button_toggle")
+pico_set_program_version(button_toggle "0.1")
+
+pico_enable_stdio_uart(button_toggle 0)
+pico_enable_stdio_usb(button_toggle 0)
+
+target_link_libraries(button_toggle
+        pico_stdlib)
+
+target_include_directories(button_toggle PRIVATE
+        ${CMAKE_CURRENT_LIST_DIR}
+)
+
+pico_add_extra_outputs(button_toggle)
