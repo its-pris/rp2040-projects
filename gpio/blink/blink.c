@@ -57,21 +57,20 @@ int main() {
 
 
 
-
 //writing above code in own words
 
 //initialization
 int pico_led_init(void)
 {
-    gpio_init(25);
-    gpio_set_dir(25, true);
+    gpio_init(10);
+    gpio_set_dir(10, true);
     return 0;
 }
 
 //turn led on/off
 void pico_set_led(bool state)
 {
-    gpio_put(25, state);
+    gpio_put(10, state);
 }
 
 int main()
