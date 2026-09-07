@@ -33,11 +33,13 @@ project(hello_pwm C CXX ASM)
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
+
 # Add executable. Default name is the project name, version 0.1
 
 add_executable(hello_pwm
         hello_pwm.c
         )
+
 
 # pull in common dependencies and additional pwm hardware support
 target_link_libraries(hello_pwm pico_stdlib hardware_pwm)

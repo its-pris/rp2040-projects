@@ -3,12 +3,9 @@
 #include "hardware/adc.h"
 #include <string.h>
 
-#define GPIO26 26
-#define ADC0 0
-
-//#define DO 0
+/*#define DO 0
 //reading DO pin
-/*int main()
+int main()
 {
     //serial monitor
     stdio_init_all();
@@ -35,6 +32,9 @@
     }
 }*/
 
+
+#define GPIO26 26
+#define ADC0 0
 
 //reading adc pin
 int main()
