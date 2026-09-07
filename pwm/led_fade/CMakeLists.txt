@@ -28,21 +28,31 @@ set(PICO_BOARD pico CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(hello_pwm C CXX ASM)
+project(led_fade C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(hello_pwm
-        hello_pwm.c
-        )
+add_executable(led_fade led_fade.c )
 
-# pull in common dependencies and additional pwm hardware support
-target_link_libraries(hello_pwm pico_stdlib hardware_pwm)
+pico_set_program_name(led_fade "led_fade")
+pico_set_program_version(led_fade "0.1")
 
-# create map/bin/hex file etc.
-pico_add_extra_outputs(hello_pwm)
+# Modify the below lines to enable/disable output over UART/USB
+pico_enable_stdio_uart(led_fade 0)
+pico_enable_stdio_usb(led_fade 1)
 
-# add url via pico_set_program_url
+# Add the standard library to the build
+target_link_libraries(led_fade
+        pico_stdlib
+        hardware_pwm)
+
+# Add the standard include files to the build
+target_include_directories(led_fade PRIVATE
+        ${CMAKE_CURRENT_LIST_DIR}
+)
+
+pico_add_extra_outputs(led_fade)
+
