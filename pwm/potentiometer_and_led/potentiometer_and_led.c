@@ -32,7 +32,7 @@ int main()
     uint slice_num = pwm_gpio_to_slice_num(15);
 
     //set wrap
-    pwm_set_wrap(slice_num, 65535);
+    pwm_set_wrap(slice_num, 255);
 
     //setting channel and level
     pwm_set_chan_level(slice_num, PWM_CHAN_B, 0);
@@ -46,8 +46,8 @@ int main()
     while(1)
     {
         uint16_t result = adc_read(); //adc_read() can be upto 4095 since its 12 bit
-        //scaling 12 bit adc with 16 bit pwm (doing 1<<8 cuz wwrap is 255)
-        pwm_value = (result * ((1 << 16) - 1)) / ((1 << 12) - 1);
+        //scaling 12 bit adc with 16 bit pwm 
+        pwm_value = (result * ((1 << 8) - 1)) / ((1 << 12) - 1);
         pwm_set_chan_level(slice_num, PWM_CHAN_B, pwm_value);
         printf("pwm value : %u \n", pwm_value);
         sleep_ms(500);

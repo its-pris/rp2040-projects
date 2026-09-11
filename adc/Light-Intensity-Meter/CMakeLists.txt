@@ -33,26 +33,40 @@ project(Light-Intensity-Meter C CXX ASM)
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# Add executable. Default name is the project name, version 0.1
+# ---- Analog (AO pin) version ----
+add_executable(Light-Intensity-Meter-analog Light-Intensity-Meter-analog.c)
 
-add_executable(Light-Intensity-Meter Light-Intensity-Meter.c )
+pico_set_program_name(Light-Intensity-Meter-analog "Light-Intensity-Meter-analog")
+pico_set_program_version(Light-Intensity-Meter-analog "0.1")
 
-pico_set_program_name(Light-Intensity-Meter "Light-Intensity-Meter")
-pico_set_program_version(Light-Intensity-Meter "0.1")
+pico_enable_stdio_uart(Light-Intensity-Meter-analog 0)
+pico_enable_stdio_usb(Light-Intensity-Meter-analog 1)
 
-# Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(Light-Intensity-Meter 0)
-pico_enable_stdio_usb(Light-Intensity-Meter 1)
-
-# Add the standard library to the build
-target_link_libraries(Light-Intensity-Meter
+target_link_libraries(Light-Intensity-Meter-analog
         pico_stdlib
         hardware_adc)
 
-# Add the standard include files to the build
-target_include_directories(Light-Intensity-Meter PRIVATE
+target_include_directories(Light-Intensity-Meter-analog PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
-pico_add_extra_outputs(Light-Intensity-Meter)
+pico_add_extra_outputs(Light-Intensity-Meter-analog)
 
+# ---- Digital (DO pin) version ----
+add_executable(Light-Intensity-Meter-digital Light-Intensity-Meter-digital.c)
+
+pico_set_program_name(Light-Intensity-Meter-digital "Light-Intensity-Meter-digital")
+pico_set_program_version(Light-Intensity-Meter-digital "0.1")
+
+pico_enable_stdio_uart(Light-Intensity-Meter-digital 0)
+pico_enable_stdio_usb(Light-Intensity-Meter-digital 1)
+
+target_link_libraries(Light-Intensity-Meter-digital
+        pico_stdlib
+        hardware_adc)
+
+target_include_directories(Light-Intensity-Meter-digital PRIVATE
+        ${CMAKE_CURRENT_LIST_DIR}
+)
+
+pico_add_extra_outputs(Light-Intensity-Meter-digital)
